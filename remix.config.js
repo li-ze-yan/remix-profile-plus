@@ -6,6 +6,8 @@ module.exports = {
   // serverBuildPath: "build/index.js",
   // publicPath: "/build/",
   serverModuleFormat: "cjs",
+  tailwind: true,
+  postcss: true,
   future: {
     v2_errorBoundary: true,
     v2_meta: true,
