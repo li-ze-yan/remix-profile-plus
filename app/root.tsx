@@ -11,6 +11,7 @@ import styles from "./styles/global.css";
 import { Button, CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { useTheme } from "./hooks";
 import { useEffect, useState } from "react";
+import classNames from "classnames";
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -43,7 +44,7 @@ export default function App() {
     console.log(theme, "darkTheme");
   }, [theme]);
   return (
-    <html lang="en" className={theme as string}>
+    <html lang="en" className={classNames(theme)}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
