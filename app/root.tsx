@@ -8,10 +8,11 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import styles from "./styles/global.css";
-import { Button, CssBaseline, ThemeProvider, createTheme } from "@mui/material";
-import { useTheme } from "./hooks";
+import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import classNames from "classnames";
+import { useUpdateEffect } from "ahooks";
+import { useSystemStore } from "./stores";
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -25,7 +26,7 @@ export const meta: V2_MetaFunction = () => {
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
 export default function App() {
-  const [theme, setTheme] = useTheme();
+  const systemStore = useSystemStore();
   const [darkTheme, setDarkTheme] = useState<any>(
     createTheme({
       palette: {
@@ -33,18 +34,36 @@ export default function App() {
       },
     })
   );
+
+  // 初始化
   useEffect(() => {
+    if (
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      systemStore.saveTheme("dark");
+    } else {
+      systemStore.saveTheme("light");
+    }
+    return () => {
+      systemStore.initTheme();
+    };
+  }, []);
+
+  // 更新
+  useUpdateEffect(() => {
+    console.log(systemStore.theme, "systemStore.theme");
     setDarkTheme(
       createTheme({
         palette: {
-          mode: theme,
+          mode: systemStore.theme,
         },
       })
     );
-    console.log(theme, "darkTheme");
-  }, [theme]);
+  }, [systemStore.theme]);
+
   return (
-    <html lang="en" className={classNames(theme)}>
+    <html lang="en" className={classNames(systemStore.theme)}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -55,12 +74,6 @@ export default function App() {
         <ThemeProvider theme={darkTheme}>
           <CssBaseline />
           <Outlet />
-          <Button
-            variant="contained"
-            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-          >
-            Hello World
-          </Button>
         </ThemeProvider>
         <ScrollRestoration />
         <Scripts />
