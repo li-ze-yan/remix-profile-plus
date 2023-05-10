@@ -1,12 +1,25 @@
 import { Button } from "@mui/material";
+import classNames from "classnames";
+import { baseStyles } from "~/constants";
+import { useSystemStore } from "~/stores";
 
 const Index = () => {
+  const systemStore = useSystemStore();
   return (
     <>
-      <span className=" text-white font-bold italic text-5xl">
+      <span className={classNames(baseStyles.layoutTheme, "w-full h-full")}>
         Hello Dashboard
+        <Button
+          variant="contained"
+          onClick={() =>
+            systemStore.saveTheme(
+              systemStore.theme === "light" ? "dark" : "light"
+            )
+          }
+        >
+          Hello World
+        </Button>
       </span>
-      <Button variant="contained">Hello World</Button>
     </>
   );
 };

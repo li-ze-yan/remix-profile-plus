@@ -1,3 +1,3 @@
-import BaseStyles from "./baseStyles";
+import baseStyles from "./baseStyles";
 
-export { BaseStyles };
+export { baseStyles };

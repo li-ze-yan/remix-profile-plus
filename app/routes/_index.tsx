@@ -1,11 +1,16 @@
 import { FormControl, TextField } from "@mui/material";
+import classNames from "classnames";
+import { baseStyles } from "~/constants";
 
 const Index = () => {
   return (
-    <div className="w-full h-screen bg-white dark:bg-[#0a1929] flex justify-center items-center">
-      <span className=" text-white font-bold italic text-5xl">
-        Hello Profile Plus
-      </span>
+    <div
+      className={classNames(
+        "w-full h-screen flex justify-center items-center",
+        baseStyles.layoutTheme
+      )}
+    >
+      <span className="font-bold italic text-5xl">Hello Profile Plus</span>
       <FormControl>
         <TextField
           id="outlined-basic"
