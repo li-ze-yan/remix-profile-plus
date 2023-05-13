@@ -1,5 +1,11 @@
+import { SiShopware } from "react-icons/si";
+
 const BackSider = () => {
-  return <div>BackSider</div>;
+  return (
+    <div>
+      <SiShopware />
+    </div>
+  );
 };
 
 export default BackSider;

@@ -6,6 +6,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLocation,
 } from "@remix-run/react";
 import styles from "./styles/global.css";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
@@ -26,6 +27,7 @@ export const meta: V2_MetaFunction = () => {
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
 export default function App() {
+  const location = useLocation();
   const systemStore = useSystemStore();
   const [darkTheme, setDarkTheme] = useState<any>(
     createTheme({
@@ -46,7 +48,12 @@ export default function App() {
       systemStore.saveTheme("light");
     }
     return () => {
-      systemStore.initTheme();
+      systemStore.initTheme(
+        window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light"
+      );
     };
   }, []);
 
