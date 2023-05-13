@@ -1,10 +1,11 @@
 import { Button } from "@mui/material";
 import classNames from "classnames";
 import { baseStyles } from "~/constants";
-import { useSystemStore } from "~/stores";
+import { Theme, useTheme } from "~/utils/theme-provider";
 
 const Index = () => {
-  const systemStore = useSystemStore();
+  const [, setTheme] = useTheme();
+
   return (
     <>
       <span className={classNames(baseStyles.layoutTheme, "w-full h-full")}>
@@ -12,8 +13,8 @@ const Index = () => {
         <Button
           variant="contained"
           onClick={() =>
-            systemStore.saveTheme(
-              systemStore.theme === "light" ? "dark" : "light"
+            setTheme((prevTheme) =>
+              prevTheme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT
             )
           }
         >

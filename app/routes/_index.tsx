@@ -1,8 +1,10 @@
-import { FormControl, TextField } from "@mui/material";
+import { Button, FormControl, TextField } from "@mui/material";
 import classNames from "classnames";
 import { baseStyles } from "~/constants";
+import { Theme, useTheme } from "~/utils/theme-provider";
 
 const Index = () => {
+  const [, setTheme] = useTheme();
   return (
     <div
       className={classNames(
@@ -10,6 +12,16 @@ const Index = () => {
         baseStyles.layoutTheme
       )}
     >
+      <Button
+        variant="contained"
+        onClick={() =>
+          setTheme((prevTheme) =>
+            prevTheme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT
+          )
+        }
+      >
+        Hello World
+      </Button>
       <span className="font-bold italic text-5xl">Hello Profile Plus</span>
       <FormControl>
         <TextField

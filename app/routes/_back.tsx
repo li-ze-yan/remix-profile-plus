@@ -1,4 +1,3 @@
-import { Card, Paper } from "@mui/material";
 import { Outlet } from "@remix-run/react";
 import classNames from "classnames";
 import { baseStyles } from "~/constants";
