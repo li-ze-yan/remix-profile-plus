@@ -1,11 +1,11 @@
-import create from "zustand";
-import { persist, devtools } from "zustand/middleware";
+import { create } from "zustand";
+import { persist, devtools, createJSONStorage } from "zustand/middleware";
 
 export interface SystemState {
   collapsed: boolean;
   theme: "dark" | "light";
   saveTheme: (theme: "dark" | "light") => void;
-  initTheme: () => void;
+  initTheme: (theme: "dark" | "light") => void;
 }
 
 const useSystemStore = create<
@@ -21,14 +21,14 @@ const useSystemStore = create<
           set(() => ({
             theme,
           })),
-        initTheme: () =>
+        initTheme: (theme) =>
           set(() => ({
-            theme: "light",
+            theme,
           })),
       }),
       {
         name: "systemStore",
-        getStorage: () => sessionStorage,
+        storage: createJSONStorage(() => sessionStorage),
       }
     )
   )
