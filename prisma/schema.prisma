@@ -11,8 +11,9 @@ datasource db {
 }
 
 model User {
-  id         Int      @id @default(autoincrement())
+  id         String   @id @default(uuid())
   email      String   @unique
+  password   String
   name       String?
   theme      Theme    @default(DARK)
   createTime DateTime @default(now())
