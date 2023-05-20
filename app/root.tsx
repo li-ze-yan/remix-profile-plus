@@ -1,4 +1,5 @@
 import type { LinksFunction, V2_MetaFunction } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -17,10 +18,10 @@ import { useSystemStore } from "./stores";
 
 export const meta: V2_MetaFunction = () => {
   return [
-    { title: "Vector | Mandalorian" },
+    { title: "Vector · Mandalorian" },
     {
       name: "description",
-      content: "Vector | Mandalorian - A blog website built by tkx.cool.",
+      content: "Vector · Mandalorian - A blog website build by tkx.cool.",
     },
   ];
 };
@@ -72,7 +73,7 @@ export default function App() {
   return (
     <html lang="en" className={classNames(systemStore.theme)}>
       <head>
-        <meta charSet="utf-8" />
+        <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta />
         <Links />

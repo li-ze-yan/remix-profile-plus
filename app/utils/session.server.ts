@@ -4,26 +4,31 @@ import bcrypt from "bcryptjs";
 import { db } from "./db.server";
 
 type LoginForm = {
+  username: string;
   email: string;
-  pwd: string;
+  password: string;
 };
 
-export async function register({ pwd, email }: LoginForm) {
-  const password = await bcrypt.hash(pwd, 10);
-  const user = await db.user.create({
-    data: { password, email },
-  });
-  return { id: user.id, email };
-}
+// 不提供注册
+// export async function register({ password, email }: LoginForm) {
+//   const pwd = await bcrypt.hash(password, 10);
+//   const user = await db.user.create({
+//     data: { password: pwd, email },
+//   });
+//   return { id: user.id, email };
+// }
 
-export async function login({ email, pwd }: LoginForm) {
+export async function login({ username, email, password }: LoginForm) {
   const user = await db.user.findUnique({
     where: { email },
   });
   if (!user) {
     return null;
   }
-  const isCorrectPassword = await bcrypt.compare(pwd, user.password);
+  if (user.name !== username) {
+    return null;
+  }
+  const isCorrectPassword = await bcrypt.compare(password, user.password);
   if (!isCorrectPassword) {
     return null;
   }

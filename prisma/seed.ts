@@ -1,13 +1,17 @@
-// import { PrismaClient } from "@prisma/client";
-// const db = new PrismaClient();
+import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcryptjs";
+const db = new PrismaClient();
 
-// async function seed() {
-//   const kody = await db.user.create({
-//     data: {
-//         email: "lizeyan1998@outlook.com",
-//       // this is a hashed version of "twixrox"
-//       password:
-//         "$2b$10$K7L1OJ45/4Y2nIvhRVpCe.FSmhDdWoXehVzJptJ/op0lSsvqNu/1u",
-//     },
-//   });
-// }
+async function seed() {
+  const vector = await db.user.create({
+    data: {
+      email: "lizeyan1998@outlook.com",
+      name: "lizeyan",
+      password: await bcrypt.hash("15123485419tan", 10),
+    },
+  });
+
+  console.log(vector);
+}
+
+seed();
